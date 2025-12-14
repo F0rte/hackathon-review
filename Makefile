@@ -3,6 +3,11 @@ team-import:
 		echo "エラー: config/teams.txt が見つかりません"; \
 		exit 1; \
 	fi; \
+	mkdir -p config; \
+	if [ ! -f config/repos.json ]; then \
+		echo '{}' | jq '.' > config/repos.json; \
+		echo "config/repos.json を作成しました"; \
+	fi; \
 	echo "config/teams.txt からチームをインポートします..."; \
 	teams=""; \
 	cat config/teams.txt | grep -v '^[[:space:]]*$$' | while IFS=: read -r num name; do \
